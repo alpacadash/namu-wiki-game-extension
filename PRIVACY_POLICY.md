@@ -55,5 +55,5 @@
 
 ## 9. 문의
 
-- GitHub 저장소: https://github.com/alpacadash/namu-wiki-game
-- GitHub Issues: https://github.com/alpacadash/namu-wiki-game/issues
+- GitHub 저장소: https://github.com/alpacadash/namu-wiki-game-extension
+- GitHub Issues: https://github.com/alpacadash/namu-wiki-game-extension/issues
