@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>나무위키 게임</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-main: #f8fbfa;
+      --bg-panel: #ffffff;
+      --bg-soft: #eef5f3;
+      --border: #d8e6e1;
+      --border-strong: #b9d2ca;
+      --text-main: #1f2d2a;
+      --text-muted: #6b7f79;
+      --accent: #008275;
+      --accent-strong: #006b60;
+      --accent-soft: #e3f3f0;
+      --danger-bg: #fff1f1;
+      --danger-border: #efc7c7;
+      --danger-text: #c84e4e;
+      --gold-bg: #fff7df;
+      --gold-text: #a78017;
+    }
+    body {
+      width: 300px;
+      min-height: 180px;
+      font-family: 'Malgun Gothic', sans-serif;
+      font-size: 14px;
+      background:
+        linear-gradient(180deg, #fcfffe 0%, #f4faf8 100%);
+      color: var(--text-main);
+      padding: 16px;
+    }
+    h1 {
+      font-size: 17px;
+      text-align: center;
+      margin-bottom: 14px;
+      color: var(--accent-strong);
+      font-weight: bold;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-panel);
+    }
+    .tab-btn {
+      flex: 1; padding: 7px;
+      background: transparent; border: none;
+      color: var(--text-muted); cursor: pointer; font-size: 13px;
+    }
+    .tab-btn.active { background: var(--accent-soft); color: var(--accent-strong); font-weight: bold; }
+    .form-group { margin-bottom: 10px; }
+    label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+    input {
+      width: 100%; padding: 7px 10px;
+      border-radius: 5px; border: 1px solid var(--border);
+      background: var(--bg-panel); color: var(--text-main);
+      font-size: 13px; outline: none;
+      font-family: inherit;
+    }
+    input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,130,117,0.12); }
+    .btn-primary {
+      width: 100%; padding: 9px;
+      border-radius: 6px; background: var(--accent);
+      border: none; color: #f8fffd;
+      font-size: 13px; font-weight: bold;
+      cursor: pointer; margin-top: 4px;
+    }
+    .btn-primary:hover { background: var(--accent-strong); }
+    .btn-danger {
+      width: 100%; padding: 8px;
+      border-radius: 6px; background: var(--danger-bg);
+      border: 1px solid var(--danger-border); color: var(--danger-text);
+      font-size: 13px; cursor: pointer; margin-top: 8px;
+    }
+    .room-code-wrap { text-align: center; margin-bottom: 12px; }
+    .room-code-label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+    .room-code-row {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+    .room-code {
+      flex: 1;
+      font-size: 26px; font-weight: bold;
+      color: var(--accent-strong); letter-spacing: 6px;
+      background: var(--accent-soft); border-radius: 8px;
+      padding: 8px; cursor: pointer;
+      border: 1px solid var(--border-strong);
+    }
+    .btn-secondary {
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-panel);
+      color: var(--accent-strong);
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      flex-shrink: 0;
+      min-width: 56px;
+    }
+    .btn-secondary:hover {
+      background: var(--accent-soft);
+    }
+    .info-box {
+      background: var(--bg-panel); border-radius: 6px;
+      padding: 9px 12px; margin-bottom: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(20, 50, 44, 0.04);
+    }
+    .info-row {
+      display: flex; justify-content: space-between;
+      margin-bottom: 3px; font-size: 12px;
+    }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-label { color: var(--text-muted); }
+    .info-value { color: var(--accent-strong); font-weight: bold; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .players-list { margin-bottom: 10px; }
+    .player-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 8px; border-radius: 4px;
+      background: var(--bg-panel); margin-bottom: 3px;
+      border: 1px solid var(--border);
+    }
+    .player-name { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .host-badge {
+      font-size: 10px; color: var(--gold-text);
+      background: var(--gold-bg); padding: 1px 5px;
+      border-radius: 8px; flex-shrink: 0;
+    }
+    .ready-badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      color: var(--text-muted);
+    }
+    .ready-on {
+      background: var(--accent-soft);
+      border-color: var(--border-strong);
+      color: var(--accent-strong);
+    }
+    .ready-off {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: var(--danger-text);
+    }
+    .player-stat { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+    .countdown {
+      text-align: center; font-size: 56px;
+      font-weight: bold; color: var(--accent-strong);
+      margin: 16px 0;
+    }
+    .status-msg { text-align: center; color: var(--text-muted); font-size: 12px; margin: 8px 0; }
+    .error-msg { color: var(--danger-text); font-size: 11px; text-align: center; margin-top: 6px; min-height: 16px; }
+
+    #screen-setup, #screen-lobby, #screen-countdown, #screen-playing { display: none; }
+    .screen-visible { display: block !important; }
+  </style>
+</head>
+<body>
+  <h1>나무위키 게임</h1>
+
+  <!-- 설정 화면 -->
+  <div id="screen-setup">
+    <div class="form-group">
+      <label>닉네임</label>
+      <input id="nickname" type="text" placeholder="이름을 입력하세요" maxlength="12">
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-create">방 만들기</button>
+      <button class="tab-btn" id="tab-join">방 입장</button>
+    </div>
+    <div id="panel-create">
+      <button class="btn-primary" id="btn-create-room">방 만들기</button>
+    </div>
+    <div id="panel-join" style="display:none">
+      <div class="form-group">
+        <label>방 코드</label>
+        <input id="roomCode" type="text" placeholder="6자리 코드" maxlength="8" style="letter-spacing:4px;text-transform:uppercase">
+      </div>
+      <button class="btn-primary" id="btn-join-room">입장하기</button>
+    </div>
+    <p id="setup-error" class="error-msg"></p>
+  </div>
+
+  <!-- 로비 화면 -->
+  <div id="screen-lobby">
+    <div class="room-code-wrap">
+      <div class="room-code-label">방 코드 (올리면 보기, 클릭하여 복사)</div>
+      <div class="room-code-row">
+        <div class="room-code" id="room-code-display">••••••</div>
+      </div>
+    </div>
+    <div class="info-box" id="lobby-doc-editor" style="display:none">
+      <div class="form-group">
+        <label>출발 문서</label>
+        <input id="lobby-start-input" type="text" placeholder="예: 대한민국">
+      </div>
+      <div class="form-group">
+        <label>도착 문서</label>
+        <input id="lobby-end-input" type="text" placeholder="예: 김치">
+      </div>
+      <button class="btn-primary" id="btn-apply-docs">적용</button>
+    </div>
+    <div class="info-box">
+      <div class="info-row">
+        <span class="info-label">출발</span>
+        <span class="info-value" id="lobby-start">-</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">도착</span>
+        <span class="info-value" id="lobby-end">-</span>
+      </div>
+    </div>
+    <div class="players-list" id="lobby-players"></div>
+    <button class="btn-primary" id="btn-start" style="display:none">게임 시작</button>
+    <p class="status-msg" id="lobby-status">호스트가 게임을 시작하기를 기다리는 중...</p>
+    <p id="lobby-error" class="error-msg"></p>
+    <button class="btn-danger" id="btn-leave-lobby">나가기</button>
+  </div>
+
+  <!-- 카운트다운 화면 -->
+  <div id="screen-countdown">
+    <p class="status-msg">게임 시작까지...</p>
+    <div class="countdown" id="countdown-num">3</div>
+    <p class="status-msg">나무위키 탭이 열립니다!</p>
+  </div>
+
+  <!-- 게임 중 / 완료 화면 -->
+  <div id="screen-playing">
+    <div class="info-box">
+      <div class="info-row">
+        <span class="info-label">목표 문서</span>
+        <span class="info-value" id="playing-end">-</span>
+      </div>
+    </div>
+    <div class="info-box" id="winner-box" style="display:none">
+      <div class="info-row">
+        <span class="info-label">1위</span>
+        <span class="info-value" id="winner-name">-</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">경로</span>
+        <span class="info-value" id="winner-path" style="max-width:none; white-space:normal; line-height:1.4">-</span>
+      </div>
+    </div>
+    <p class="status-msg" id="playing-status">나무위키 탭에서 게임을 진행하세요.</p>
+    <div class="players-list" id="playing-players"></div>
+    <button class="btn-primary" id="btn-replay" style="display:none">다시하기</button>
+    <button class="btn-danger" id="btn-leave-playing" style="display:none">나가기</button>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="socket.io.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
