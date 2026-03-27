@@ -1,13 +1,12 @@
 {
   "manifest_version": 3,
   "name": "나무위키 게임",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "나무위키 링크를 클릭해서 목표 문서까지 도달하는 멀티플레이 게임",
   "permissions": ["storage", "tabs"],
   "host_permissions": [
-    "http://localhost:3000/*",
-    "https://*/*",
-    "http://*/*"
+    "https://namu.wiki/*",
+    "https://following-stace-alpacadash-f96a56ec.koyeb.app/*"
   ],
   "background": {
     "service_worker": "background.js"
