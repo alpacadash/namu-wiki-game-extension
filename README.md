@@ -23,9 +23,9 @@
 
 ## 개인정보처리방침
 
-개인정보처리방침은 [PRIVACY_POLICY.md](/C:/CE/wiki_game/extension/PRIVACY_POLICY.md)에서 확인할 수 있습니다.
+개인정보처리방침은 [PRIVACY_POLICY.md](https://github.com/alpacadash/namu-wiki-game-extension/blob/main/PRIVACY_POLICY.md)에서 확인할 수 있습니다.
 
 ## 지원
 
-- GitHub 저장소: https://github.com/alpacadash/namu-wiki-game
-- GitHub Issues: https://github.com/alpacadash/namu-wiki-game/issues
+- GitHub 저장소: https://github.com/alpacadash/namu-wiki-game-extension
+- GitHub Issues: https://github.com/alpacadash/namu-wiki-game-extension/issues
